@@ -1,9 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TodoList } from '../TodoList/TodoList';
-// import PropTypes from 'prop-types';
 
-// eslint-disable-next-line arrow-body-style
 export const TodoApp = () => {
+  const [todos, setTodos] = useState([]);
+  const [todoTitle, setTodoTitle] = useState('');
+
+  const addNewTodo = (event) => {
+    const title = event.target.value.trim();
+    let NewTodo = {};
+
+    if (event.key === 'Enter' && title) {
+      NewTodo = {
+        title,
+        id: +new Date(),
+        completed: false,
+      };
+
+      setTodos(todos.concat(NewTodo));
+      setTodoTitle('');
+      // // eslint-disable-next-line no-console
+      // console.log(todos);
+    }
+  };
+
+  const handleChange = (event) => {
+    const title = event.target.value;
+
+    setTodoTitle(title);
+  };
+
   return (
     <section className="todoapp">
       <header className="header">
@@ -14,6 +39,9 @@ export const TodoApp = () => {
             type="text"
             className="new-todo"
             placeholder="What needs to be done?"
+            value={todoTitle}
+            onChange={handleChange}
+            onKeyDown={addNewTodo}
           />
         </form>
       </header>
@@ -22,12 +50,12 @@ export const TodoApp = () => {
         <input type="checkbox" id="toggle-all" className="toggle-all" />
         <label htmlFor="toggle-all">Mark all as complete</label>
 
-        <TodoList />
+        <TodoList items={todos} />
       </section>
 
       <footer className="footer">
         <span className="todo-count">
-          3 items left
+          {`${todos.length} items left`}
         </span>
 
         <ul className="filters">
@@ -51,5 +79,3 @@ export const TodoApp = () => {
     </section>
   );
 };
-
-// TodoList.propTypes = {};
