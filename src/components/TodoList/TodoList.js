@@ -6,12 +6,7 @@ export const TodoList = ({ items }) => (
   <ul className="todo-list">
     {
       items.map(item => (
-        <li
-          className={item.completed ? 'completed' : ''}
-          key={item.id}
-        >
-          <TodoItem item={item} />
-        </li>
+        <TodoItem item={item} key={item.id} />
       ))
     }
     {/* <li>

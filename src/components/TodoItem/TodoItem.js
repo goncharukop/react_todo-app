@@ -3,7 +3,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export const TodoItem = ({ item }) => (
-  <div>
+  <li
+    className={item.completed ? 'completed' : ''}
+  >
     <div className="view">
       <input
         type="checkbox"
@@ -17,7 +19,7 @@ export const TodoItem = ({ item }) => (
       />
     </div>
     <input type="text" className="edit" />
-  </div>
+  </li>
 );
 
 TodoItem.propTypes = {
