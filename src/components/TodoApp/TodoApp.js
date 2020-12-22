@@ -5,6 +5,16 @@ export const TodoApp = () => {
   const [todos, setTodos] = useState([]);
   const [todoTitle, setTodoTitle] = useState('');
 
+  const handleCompleted = (id) => {
+    setTodos(todos.map((todo) => {
+      if (id === todo.id) {
+        return { ...todo, completed: !todo.completed };
+      }
+
+      return todo;
+    }));
+  };
+
   const addNewTodo = (event) => {
     const title = event.target.value.trim();
     let NewTodo = {};
@@ -18,8 +28,6 @@ export const TodoApp = () => {
 
       setTodos(todos.concat(NewTodo));
       setTodoTitle('');
-      // // eslint-disable-next-line no-console
-      // console.log(todos);
     }
   };
 
@@ -50,7 +58,7 @@ export const TodoApp = () => {
         <input type="checkbox" id="toggle-all" className="toggle-all" />
         <label htmlFor="toggle-all">Mark all as complete</label>
 
-        <TodoList items={todos} />
+        <TodoList items={todos} handleCompleted={handleCompleted} />
       </section>
 
       <footer className="footer">

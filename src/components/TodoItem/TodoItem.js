@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const TodoItem = ({ item }) => (
+export const TodoItem = ({ item, handleCompleted }) => (
   <li
     className={item.completed ? 'completed' : ''}
   >
@@ -10,12 +10,13 @@ export const TodoItem = ({ item }) => (
       <input
         type="checkbox"
         className="toggle"
+        onChange={handleCompleted}
       />
       <label>{item.title}</label>
       <button
         type="button"
         className="destroy"
-        onClick={console.log(item.id)}
+        // onClick={() => handleDelete()}
       />
     </div>
     <input type="text" className="edit" />
@@ -26,6 +27,7 @@ TodoItem.propTypes = {
   item: PropTypes.shape({
     title: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
-    completed: PropTypes.bool,
+    completed: PropTypes.bool.isRequired,
   }).isRequired,
+  handleCompleted: PropTypes.func.isRequired,
 };
